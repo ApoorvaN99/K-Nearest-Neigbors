@@ -1,0 +1,19 @@
+from sklearn import datasets
+iris=datasets.load_iris()
+instances=iris.data
+targets=iris.target
+
+from sklearn.model_selection import train_test_split
+xtrain,xtest,ytrain,ytest=train_test_split(instances,targets,test_size=0.15)
+print("no. of training instances=",xtrain.shape[0])
+print("no. of testing instances=",xtest.shape[0])
+
+from sklearn.neighbors import KNeighborsClassifier
+model=KNeighborsClassifier(n_neighbors=1)
+model.fit(xtrain,ytrain)
+pred=model.predict(xtest)
+
+for i in range(len(xtest)):
+    print(xtest[i],": actual label->",ytest[i],", predicted label->",pred[i])
+       
+print("accuracy=",model.score(xtest,ytest))
